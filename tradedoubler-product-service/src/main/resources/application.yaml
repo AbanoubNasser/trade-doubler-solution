@@ -1,0 +1,20 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1024KB
+      max-request-size: 1024KB
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://192.168.8.144:5432/productfiles}
+    username: ${SPRING_DATASOURCE_USERNAME:productservice}
+    password: ${SPRING_DATASOURCE_PASSWORD:productservicepassword}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+
+file-storage:
+  bucket-name: product-files-uploads
