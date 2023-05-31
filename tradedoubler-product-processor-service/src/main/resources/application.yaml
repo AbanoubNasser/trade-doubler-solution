@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://192.168.8.144:5433/products}
+    username: ${SPRING_DATASOURCE_USERNAME:productservice}
+    password: ${SPRING_DATASOURCE_PASSWORD:productservicepassword}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+server:
+  port: 9090
+productFileService:
+  url: ${PRODUCTS_FILE_SERVICE_URL:http://localhost:8080/api/v1/products}

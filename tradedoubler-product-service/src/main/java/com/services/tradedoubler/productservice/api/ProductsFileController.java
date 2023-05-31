@@ -1,5 +1,7 @@
 package com.services.tradedoubler.productservice.api;
 
+import com.services.tradedoubler.productservice.api.bo.ProductsFileDto;
+import com.services.tradedoubler.productservice.model.FileStatus;
 import com.services.tradedoubler.productservice.model.ProductsFileEntity;
 import com.services.tradedoubler.productservice.api.bo.ProductsFileStatusUpdateRequest;
 import com.services.tradedoubler.productservice.service.ProductsFileService;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
+import java.util.List;
 
 import static com.services.tradedoubler.productservice.TradeDoublerProductServiceApplication.API_VERSION_1;
 
@@ -34,6 +37,12 @@ public class ProductsFileController {
     public ResponseEntity<?> updateProductsFileStatus(@NotBlank @PathVariable String fileId, @Valid @RequestBody ProductsFileStatusUpdateRequest productsFileStatusUpdateRequest) {
         productsFileService.updateProductsFileStatus(fileId, productsFileStatusUpdateRequest);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getProductsFilesByStatus(@RequestParam FileStatus status) {
+        List<ProductsFileDto> list = productsFileService.getProductsFilesByStatus(status);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping(path = "/{fileId}/content", produces = MediaType.APPLICATION_XML_VALUE)

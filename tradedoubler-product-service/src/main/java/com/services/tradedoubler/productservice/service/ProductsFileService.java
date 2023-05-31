@@ -1,7 +1,9 @@
 package com.services.tradedoubler.productservice.service;
 
+import com.services.tradedoubler.productservice.api.bo.ProductsFileDto;
 import com.services.tradedoubler.productservice.api.bo.ProductsFileStatusUpdateRequest;
 import com.services.tradedoubler.productservice.exception.ServiceError;
+import com.services.tradedoubler.productservice.model.FileStatus;
 import com.services.tradedoubler.productservice.model.ProductsFileEntity;
 import com.services.tradedoubler.productservice.repository.ProductsFileRepository;
 import jakarta.transaction.Transactional;
@@ -11,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -39,6 +43,18 @@ public class ProductsFileService {
         entity.setStatus(productsFileStatusUpdateRequest.getStatus());
         entity.setComment(productsFileStatusUpdateRequest.getComment());
         return productsFileRepository.save(entity);
+    }
+
+    public List<ProductsFileDto> getProductsFilesByStatus(final FileStatus status){
+        return productsFileRepository.findByStatus(status)
+                .stream()
+                .map(entity -> ProductsFileDto.builder()
+                        .id(entity.getId())
+                        .fileName(entity.getFileName())
+                        .status(entity.getStatus())
+                        .comment(entity.getComment())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     public String getProductsFileContent(final String fileId) {
