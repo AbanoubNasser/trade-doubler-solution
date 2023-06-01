@@ -47,7 +47,7 @@ public class Offer {
     protected String shippingCost;
 
     @JacksonXmlProperty(localName = "id",isAttribute = true)
-    protected String id;
+    protected String offerId;
 
     @JacksonXmlProperty(localName = "sourceProductId",isAttribute = true)
     protected String sourceProductId;

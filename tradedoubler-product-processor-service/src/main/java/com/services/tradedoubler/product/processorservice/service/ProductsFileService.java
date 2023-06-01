@@ -28,4 +28,8 @@ public class ProductsFileService {
     public List<ProductsFile> getProductsFilesByStatus(final FileStatus fileStatus){
         return productsFileClient.getProductsFilesByStatus(fileStatus.name().toUpperCase());
     }
+
+    public String getProductsFileContent(final String fileId){
+        return productsFileClient.getProductsFileContent(fileId);
+    }
 }
