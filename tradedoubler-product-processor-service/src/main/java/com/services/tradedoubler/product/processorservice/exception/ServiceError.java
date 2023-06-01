@@ -5,7 +5,11 @@ import org.springframework.http.HttpStatus;
 public enum ServiceError implements RestError {
 
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, ""),
-    REQUEST_VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "Invalid expected input");
+    REQUEST_VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "Invalid expected input"),
+
+    INVALID_XML_CONTENT(HttpStatus.BAD_REQUEST, "Invalid xml content vs defined schema"),
+
+    INVALID_XML_MAPPING(HttpStatus.BAD_REQUEST, "Invalid xml mapping values to schema"),;
     /**
      * The http status.
      */
