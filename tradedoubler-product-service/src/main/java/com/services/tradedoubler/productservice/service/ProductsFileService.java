@@ -31,9 +31,9 @@ public class ProductsFileService {
     @Transactional
     public ProductsFileEntity uploadProductFile(final MultipartFile file){
         log.info("Start upload product file {}", file.getOriginalFilename());
-        fileStorageService.addProductsFileToBucket(file);
-        log.info("product file {} uploaded successfully", file.getOriginalFilename());
         ProductsFileEntity entity = new ProductsFileEntity(file.getOriginalFilename());
+        fileStorageService.addProductsFileToBucket(entity.getId(),file);
+        log.info("product file {} uploaded successfully", file.getOriginalFilename());
         return productsFileRepository.save(entity);
     }
 
@@ -61,7 +61,9 @@ public class ProductsFileService {
         log.info("Retrieve product file with id {} content", fileId);
         ProductsFileEntity entity = getProductsFileEntityById(fileId);
         try {
-            return fileStorageService.loadProductsFileByName(entity.getFileName()).getContentAsString(Charset.defaultCharset());
+            final String fileName = entity.getId()+FileStorageService.SEPARATOR+entity.getFileName();
+            return fileStorageService.loadProductsFileByName(fileName)
+                    .getContentAsString(Charset.defaultCharset());
         } catch (IOException e) {
            throw ServiceError.INTERNAL_SERVER_ERROR.buildException(e.getMessage());
         }

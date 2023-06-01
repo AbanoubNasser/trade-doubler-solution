@@ -20,8 +20,8 @@ import java.nio.file.Paths;
 @Slf4j
 public class FileStorageService {
 
+    public final static String SEPARATOR = "-";
     private final FileStorageProperties fileStorageProperties;
-
     private final Path root;
 
     public FileStorageService(FileStorageProperties fileStorageProperties) {
@@ -40,10 +40,10 @@ public class FileStorageService {
         }
     }
 
-    public void addProductsFileToBucket(MultipartFile file) {
+    public void addProductsFileToBucket(String fileId, MultipartFile file) {
         try {
             log.info("upload products file {} to the bucket", file.getOriginalFilename());
-            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+            Files.copy(file.getInputStream(), this.root.resolve(fileId+SEPARATOR+file.getOriginalFilename()));
         } catch (Exception e) {
             if (e instanceof FileAlreadyExistsException) {
                 log.warn("upload duplicate products file {} to the bucket", file.getOriginalFilename());
