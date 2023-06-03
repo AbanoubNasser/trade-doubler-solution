@@ -32,7 +32,6 @@ public class PriceEntity extends Auditable {
     private String dateFormat;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "offer_id")
+    @JoinColumn(name = "offer_id", nullable = false, referencedColumnName = "id")
     private OfferEntity offer;
 }

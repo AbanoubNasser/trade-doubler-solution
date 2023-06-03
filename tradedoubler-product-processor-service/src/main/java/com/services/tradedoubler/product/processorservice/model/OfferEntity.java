@@ -33,9 +33,6 @@ public class OfferEntity extends Auditable {
 
     private String programLogo;
 
-    @OneToOne(mappedBy = "offer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PriceEntity price;
-
     private String warranty;
 
     private Integer inStock;

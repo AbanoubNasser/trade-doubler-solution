@@ -28,7 +28,6 @@ public class ProductImageEntity extends Auditable {
     private Integer width;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "id")
     private ProductEntity product;
 }

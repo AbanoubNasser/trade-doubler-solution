@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS price
 (
+    id UUID NOT NULL,
     value NUMERIC(38,2),
     date BIGINT,
     offer_id UUID NOT NULL,

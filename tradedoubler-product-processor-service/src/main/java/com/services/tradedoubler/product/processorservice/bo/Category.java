@@ -16,7 +16,7 @@ public class Category {
     private String name;
 
     @JacksonXmlProperty(localName = "id",isAttribute = true)
-    private Integer id;
+    private Integer categoryId;
 
     @JacksonXmlProperty(localName = "tdCategoryName",isAttribute = true)
     private String tdCategoryName;

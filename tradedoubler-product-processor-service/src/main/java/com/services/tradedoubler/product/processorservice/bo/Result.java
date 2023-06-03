@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class Result {
 
     @JacksonXmlElementWrapper(localName = "products")
     @JacksonXmlProperty(localName = "product")
-    private List<Product> products;
+    private Set<Product> products;
 
     @JacksonXmlProperty(localName = "version",isAttribute = true)
     private BigDecimal version;

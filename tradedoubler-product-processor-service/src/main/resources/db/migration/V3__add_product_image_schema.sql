@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS product_image
 (
+    id UUID NOT NULL,
     value VARCHAR(500),
     height integer,
     width integer,

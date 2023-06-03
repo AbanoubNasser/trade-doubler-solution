@@ -1,9 +1,12 @@
 package com.services.tradedoubler.product.processorservice.service;
 
+import com.services.tradedoubler.product.processorservice.bo.Product;
 import com.services.tradedoubler.product.processorservice.bo.Result;
 import com.services.tradedoubler.product.processorservice.config.ProductProperties;
 import com.services.tradedoubler.product.processorservice.utils.XmlUtility;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class ProductsProcessorService {
@@ -16,8 +19,9 @@ public class ProductsProcessorService {
         this.productProperties = productProperties;
     }
 
-    public void processProducts(final String productsXmlContent){
+    public Set<Product> processProducts(final String productsXmlContent){
         xmlUtility.validate(productsXmlContent, productProperties.getSchemaFileName());
         Result productsResult = xmlUtility.parseXml(productsXmlContent, Result.class);
+        return productsResult.getProducts();
     }
 }

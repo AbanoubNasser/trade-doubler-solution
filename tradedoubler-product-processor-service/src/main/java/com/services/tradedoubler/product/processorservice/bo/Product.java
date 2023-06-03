@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -33,11 +33,11 @@ public class Product implements Serializable {
 
     @JacksonXmlElementWrapper(localName = "categories")
     @JacksonXmlProperty(localName = "category")
-    protected List<Category> categories;
+    protected Set<Category> categories;
 
     @JacksonXmlElementWrapper(localName = "fields")
     @JacksonXmlProperty(localName = "field")
-    protected List<Field> fields;
+    protected Set<Field> fields;
 
     @JacksonXmlProperty(localName = "weight")
     protected String weight;
@@ -80,5 +80,5 @@ public class Product implements Serializable {
 
     @JacksonXmlElementWrapper(localName = "offers")
     @JacksonXmlProperty(localName = "offer")
-    protected List<Offer> offers;
+    protected Set<Offer> offers;
 }
