@@ -15,15 +15,15 @@ import java.math.BigDecimal;
 public class Price {
 
     @JacksonXmlText
-    protected BigDecimal value;
+    private BigDecimal value;
 
     @JacksonXmlProperty(localName = "currency",isAttribute = true)
-    protected String currency;
+    private String currency;
 
 
     @JacksonXmlProperty(localName = "date",isAttribute = true)
-    protected Long date;
+    private Long date;
 
     @JacksonXmlProperty(localName = "dateFormat",isAttribute = true)
-    protected String dateFormat;
+    private String dateFormat;
 }

@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class Field {
 
     @JacksonXmlText
-    protected String value;
+    private String value;
 
     @JacksonXmlProperty(localName = "name",isAttribute = true)
-    protected String name;
+    private String name;
 }

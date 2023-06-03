@@ -13,50 +13,50 @@ import lombok.NoArgsConstructor;
 public class Offer {
 
     @JacksonXmlProperty(localName = "feedId")
-    protected Long feedId;
+    private Long feedId;
 
     @JacksonXmlProperty(localName = "productUrl")
-    protected String productUrl;
+    private String productUrl;
 
     @JacksonXmlProperty(localName = "programName")
-    protected String programName;
+    private String programName;
 
     @JacksonXmlProperty(localName = "programLogo")
-    protected String programLogo;
+    private String programLogo;
 
     @JacksonXmlProperty(localName = "priceHistory")
-    protected PriceHistory priceHistory;
+    private PriceHistory priceHistory;
 
     @JacksonXmlProperty(localName = "warranty")
-    protected String warranty;
+    private String warranty;
 
 
     @JacksonXmlProperty(localName = "inStock")
-    protected Integer inStock;
+    private Integer inStock;
 
     @JacksonXmlProperty(localName = "availability")
-    protected String availability;
+    private String availability;
 
    @JacksonXmlProperty(localName = "deliveryTime")
-    protected String deliveryTime;
+    private String deliveryTime;
 
     @JacksonXmlProperty(localName = "condition")
-    protected String condition;
+    private String condition;
 
     @JacksonXmlProperty(localName = "shippingCost")
-    protected String shippingCost;
+    private String shippingCost;
 
     @JacksonXmlProperty(localName = "id",isAttribute = true)
-    protected String offerId;
+    private String offerId;
 
     @JacksonXmlProperty(localName = "sourceProductId",isAttribute = true)
-    protected String sourceProductId;
+    private String sourceProductId;
 
 
     @JacksonXmlProperty(localName = "modifiedDate",isAttribute = true)
-    protected Long modifiedDate;
+    private Long modifiedDate;
 
     @JacksonXmlProperty(localName = "dateFormat",isAttribute = true)
-    protected String dateFormat;
+    private String dateFormat;
 
 }

@@ -16,6 +16,12 @@ import java.util.List;
 @JacksonXmlRootElement(localName = "product")
 public class Product implements Serializable {
 
+    @JacksonXmlProperty(localName = "groupingId",isAttribute = true)
+    protected String groupingId;
+
+    @JacksonXmlProperty(localName = "language",isAttribute = true)
+    protected String language;
+
     @JacksonXmlProperty(localName = "name")
     private String name;
 
@@ -75,10 +81,4 @@ public class Product implements Serializable {
     @JacksonXmlElementWrapper(localName = "offers")
     @JacksonXmlProperty(localName = "offer")
     protected List<Offer> offers;
-
-    @JacksonXmlProperty(localName = "groupingId",isAttribute = true)
-    protected String groupingId;
-
-    @JacksonXmlProperty(localName = "language",isAttribute = true)
-    protected String language;
 }

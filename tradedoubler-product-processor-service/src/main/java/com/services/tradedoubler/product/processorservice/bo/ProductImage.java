@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 public class ProductImage {
 
     @JacksonXmlText
-    protected String value;
+    private String value;
 
     @JacksonXmlProperty(localName = "height",isAttribute = true)
-    protected Integer height;
+    private Integer height;
 
     @JacksonXmlProperty(localName = "width",isAttribute = true)
-    protected Integer width;
+    private Integer width;
 }

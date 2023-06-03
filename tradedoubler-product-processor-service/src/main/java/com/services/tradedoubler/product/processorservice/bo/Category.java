@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 public class Category {
 
     @JacksonXmlProperty(localName = "name",isAttribute = true)
-    protected String name;
+    private String name;
 
     @JacksonXmlProperty(localName = "id",isAttribute = true)
-    protected Integer categoryId;
+    private Integer id;
 
     @JacksonXmlProperty(localName = "tdCategoryName",isAttribute = true)
-    protected String tdCategoryName;
+    private String tdCategoryName;
 }
