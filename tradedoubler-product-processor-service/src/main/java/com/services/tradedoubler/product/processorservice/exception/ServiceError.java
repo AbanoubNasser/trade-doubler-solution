@@ -9,7 +9,9 @@ public enum ServiceError implements RestError {
 
     INVALID_XML_CONTENT(HttpStatus.BAD_REQUEST, "Invalid xml content vs defined schema"),
 
-    INVALID_XML_MAPPING(HttpStatus.BAD_REQUEST, "Invalid xml mapping values to schema"),;
+    INVALID_XML_MAPPING(HttpStatus.BAD_REQUEST, "Invalid xml mapping values to schema"),
+
+    ERROR_WHILE_PERSISTING_PRODUCTS_DATA(HttpStatus.INTERNAL_SERVER_ERROR, "");
     /**
      * The http status.
      */

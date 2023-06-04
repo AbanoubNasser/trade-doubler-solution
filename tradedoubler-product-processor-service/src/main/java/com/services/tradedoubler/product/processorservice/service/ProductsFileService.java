@@ -1,14 +1,17 @@
 package com.services.tradedoubler.product.processorservice.service;
 
+import com.services.tradedoubler.product.processorservice.exception.ServiceError;
 import com.services.tradedoubler.product.processorservice.integration.ProductsFileClient;
 import com.services.tradedoubler.product.processorservice.integration.data.FileStatus;
 import com.services.tradedoubler.product.processorservice.integration.data.ProductsFile;
 import com.services.tradedoubler.product.processorservice.integration.data.ProductsFileStatusUpdateRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class ProductsFileService {
 
     private final ProductsFileClient productsFileClient;
@@ -26,10 +29,21 @@ public class ProductsFileService {
         productsFileClient.updateProcessedProductsFileStatus(fileId, request);
     }
     public List<ProductsFile> getProductsFilesByStatus(final FileStatus fileStatus){
-        return productsFileClient.getProductsFilesByStatus(fileStatus.name().toUpperCase());
+        try {
+            return productsFileClient.getProductsFilesByStatus(fileStatus.name().toUpperCase());
+        }catch (Exception ex){
+            log.error("Error while retrieving products files due to {}", ex.getMessage());
+            throw ServiceError.INTERNAL_SERVER_ERROR.buildException(ex.getMessage());
+        }
+
     }
 
     public String getProductsFileContent(final String fileId){
-        return productsFileClient.getProductsFileContent(fileId);
+        try {
+            return productsFileClient.getProductsFileContent(fileId);
+        }catch (Exception ex){
+            log.error("Error while retrieve product file {} content due to {}", fileId ,ex.getMessage());
+            throw ServiceError.INTERNAL_SERVER_ERROR.buildException(ex.getMessage());
+        }
     }
 }

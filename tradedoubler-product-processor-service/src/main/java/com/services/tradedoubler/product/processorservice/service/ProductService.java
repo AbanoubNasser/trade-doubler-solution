@@ -1,6 +1,7 @@
 package com.services.tradedoubler.product.processorservice.service;
 
 import com.services.tradedoubler.product.processorservice.bo.Product;
+import com.services.tradedoubler.product.processorservice.exception.ServiceError;
 import com.services.tradedoubler.product.processorservice.model.ProductEntity;
 import com.services.tradedoubler.product.processorservice.repository.ProductRepository;
 import com.services.tradedoubler.product.processorservice.service.mapper.ProductMapper;
@@ -28,14 +29,17 @@ public class ProductService {
     }
 
     public void createProducts(Set<Product> products){
-        Set<ProductEntity> productEntities = productMapper.mapToSet(products);
-        List<ProductEntity> persistedProducts = productRepository.saveAll(productEntities);
-        persistedProducts.stream().forEach(productEntity -> {
-            Product targetProduct = products.stream().filter(product -> product.getGroupingId().equals(productEntity.getGroupingId())).findFirst().get();
-            offerService.createProductOffers(productEntity, targetProduct.getOffers());
-            productImageService.createProductImage(productEntity, targetProduct.getProductImage());
-            fieldService.creatProductFields(productEntity, targetProduct.getFields());
-        });
-        System.out.println("Done");
+        try{
+            Set<ProductEntity> productEntities = productMapper.mapToSet(products);
+            List<ProductEntity> persistedProducts = productRepository.saveAll(productEntities);
+            persistedProducts.stream().forEach(productEntity -> {
+                Product targetProduct = products.stream().filter(product -> product.getGroupingId().equals(productEntity.getGroupingId())).findFirst().get();
+                offerService.createProductOffers(productEntity, targetProduct.getOffers());
+                productImageService.createProductImage(productEntity, targetProduct.getProductImage());
+                fieldService.creatProductFields(productEntity, targetProduct.getFields());
+            });
+        }catch (Exception exception){
+            throw ServiceError.ERROR_WHILE_PERSISTING_PRODUCTS_DATA.buildException(exception.getMessage());
+        }
     }
 }
