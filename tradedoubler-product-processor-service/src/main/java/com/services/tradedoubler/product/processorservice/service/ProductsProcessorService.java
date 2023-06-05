@@ -7,6 +7,7 @@ import com.services.tradedoubler.product.processorservice.utils.XmlUtility;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductsProcessorService {
@@ -19,9 +20,12 @@ public class ProductsProcessorService {
         this.productProperties = productProperties;
     }
 
-    public Set<Product> processProducts(final String productsXmlContent){
+    public Set<Product> processProducts(final String productsXmlContent, String productsFileId){
         xmlUtility.validate(productsXmlContent, productProperties.getSchemaFileName());
         Result productsResult = xmlUtility.parseXml(productsXmlContent, Result.class);
-        return productsResult.getProducts();
+        return productsResult.getProducts().parallelStream().map(product ->{
+            product.setProductFileId(productsFileId);
+            return product;
+        }).collect(Collectors.toSet());
     }
 }

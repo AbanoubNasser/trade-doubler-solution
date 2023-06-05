@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS product
     tech_specs VARCHAR(255) ,
     upc VARCHAR(255) ,
     weight VARCHAR(255) ,
+    product_file_id VARCHAR(50),
     created_date_time TIMESTAMP NOT NULL,
     modified_date_time TIMESTAMP,
     CONSTRAINT product_pkey PRIMARY KEY (id)

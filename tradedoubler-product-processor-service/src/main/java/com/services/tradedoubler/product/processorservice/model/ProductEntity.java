@@ -27,6 +27,8 @@ public class ProductEntity extends Auditable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    private String productFileId;
+
     private String groupingId;
 
 

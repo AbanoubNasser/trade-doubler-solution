@@ -41,7 +41,7 @@ public class ProductsProcessorScheduler {
                         log.info("Request content of products file {} ",entry.getFileName());
                         String productsFileContent = productsFileService.getProductsFileContent(entry.getId());
                         log.info("Start process content of products file {} ",entry.getFileName());
-                        Set<Product> products = productsProcessorService.processProducts(productsFileContent);
+                        Set<Product> products = productsProcessorService.processProducts(productsFileContent, entry.getId());
                         log.info("Start persist content of products file {} ",entry.getFileName());
                         productService.createProducts(products);
                         log.info("Update products file {} status ",entry.getFileName());

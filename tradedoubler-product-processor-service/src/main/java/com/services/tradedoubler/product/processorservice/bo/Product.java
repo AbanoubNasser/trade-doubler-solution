@@ -16,69 +16,75 @@ import java.util.Set;
 @JacksonXmlRootElement(localName = "product")
 public class Product implements Serializable {
 
+    private String productFileId; 
+    
     @JacksonXmlProperty(localName = "groupingId",isAttribute = true)
-    protected String groupingId;
+    private String groupingId;
 
     @JacksonXmlProperty(localName = "language",isAttribute = true)
-    protected String language;
+    private String language;
 
     @JacksonXmlProperty(localName = "name")
     private String name;
 
     @JacksonXmlProperty(localName = "description")
-    protected String description;
+    private String description;
 
     @JacksonXmlProperty(localName = "productImage")
-    protected ProductImage productImage;
+    private ProductImage productImage;
 
     @JacksonXmlElementWrapper(localName = "categories")
     @JacksonXmlProperty(localName = "category")
-    protected Set<Category> categories;
+    private Set<Category> categories;
 
     @JacksonXmlElementWrapper(localName = "fields")
     @JacksonXmlProperty(localName = "field")
-    protected Set<Field> fields;
+    private Set<Field> fields;
 
     @JacksonXmlProperty(localName = "weight")
-    protected String weight;
+    private String weight;
 
     @JacksonXmlProperty(localName = "size")
-    protected String size;
+    private String size;
 
     @JacksonXmlProperty(localName = "model")
-    protected String model;
+    private String model;
 
     @JacksonXmlProperty(localName = "brand")
-    protected String brand;
+    private String brand;
 
     @JacksonXmlProperty(localName = "manufacturer")
-    protected String manufacturer;
+    private String manufacturer;
 
     @JacksonXmlProperty(localName = "techSpecs")
-    protected String techSpecs;
+    private String techSpecs;
 
     @JacksonXmlProperty(localName = "shortDescription")
-    protected String shortDescription;
+    private String shortDescription;
 
     @JacksonXmlProperty(localName = "promoText")
-    protected String promoText;
+    private String promoText;
 
     @JacksonXmlProperty(localName = "ean")
-    protected String ean;
+    private String ean;
 
     @JacksonXmlProperty(localName = "upc")
-    protected String upc;
+    private String upc;
 
     @JacksonXmlProperty(localName = "isbn")
-    protected String isbn;
+    private String isbn;
 
     @JacksonXmlProperty(localName = "mpn")
-    protected String mpn;
+    private String mpn;
 
     @JacksonXmlProperty(localName = "sku")
-    protected String sku;
+    private String sku;
 
     @JacksonXmlElementWrapper(localName = "offers")
     @JacksonXmlProperty(localName = "offer")
-    protected Set<Offer> offers;
+    private Set<Offer> offers;
+
+    public void setProductFileId(String productFileId){
+        this.productFileId = productFileId;
+    }
 }
