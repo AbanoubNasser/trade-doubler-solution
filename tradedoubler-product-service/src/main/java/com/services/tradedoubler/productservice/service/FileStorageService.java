@@ -6,12 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,11 +43,7 @@ public class FileStorageService {
             log.info("upload products file {} to the bucket", file.getOriginalFilename());
             Files.copy(file.getInputStream(), this.root.resolve(fileId+SEPARATOR+file.getOriginalFilename()));
         } catch (Exception e) {
-            if (e instanceof FileAlreadyExistsException) {
-                log.warn("upload duplicate products file {} to the bucket", file.getOriginalFilename());
-               throw ServiceError.DUPLICATE_FILES_WITH_THE_SAME_NAME.buildException();
-            }
-            log.error("Error while uploading products file {} to the bucket Due to error: {}", file.getOriginalFilename(), e.getLocalizedMessage());
+            log.error("Error while uploading products file to the bucket Due to error: {}", e.getLocalizedMessage());
             throw ServiceError.INTERNAL_SERVER_ERROR.buildException(e.getLocalizedMessage());
         }
     }
@@ -72,6 +66,15 @@ public class FileStorageService {
     }
 
     public void deleteAll() {
-        FileSystemUtils.deleteRecursively(root.toFile());
+        try {
+            Files.newDirectoryStream( this.root ).forEach( file -> {
+                try { Files.delete( file ); }
+                catch ( IOException e ) {
+                    throw ServiceError.INTERNAL_SERVER_ERROR.buildException(e.getLocalizedMessage());
+                }
+            } );
+        }catch ( IOException e ) {
+            throw ServiceError.INTERNAL_SERVER_ERROR.buildException(e.getLocalizedMessage());
+        }
     }
 }

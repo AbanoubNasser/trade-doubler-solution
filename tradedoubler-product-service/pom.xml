@@ -127,6 +127,12 @@
                         <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
                     </systemPropertyVariables>
                     <excludes>
+                        <exclude>com/services/tradedoubler/productservice/api/bo/*</exclude>
+                        <exclude>com/services/tradedoubler/productservice/model/*</exclude>
+                        <exclude>com/services/tradedoubler/productservice/base/entity/*</exclude>
+                        <exclude>com/services/tradedoubler/productservice/exception/*</exclude>
+                        <exclude>com/services/tradedoubler/productsservice/config/*</exclude>
+                        <exclude>com/services/tradedoubler/productservice/TradeDoublerProductServiceApplication.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
