@@ -11,7 +11,11 @@ public enum ServiceError implements RestError {
 
     INVALID_XML_MAPPING(HttpStatus.BAD_REQUEST, "Invalid xml mapping values to schema"),
 
-    ERROR_WHILE_PERSISTING_PRODUCTS_DATA(HttpStatus.INTERNAL_SERVER_ERROR, "");
+    ERROR_WHILE_PERSISTING_PRODUCTS_DATA(HttpStatus.INTERNAL_SERVER_ERROR, ""),
+
+    NOT_FOUND_PRODUCT_IMAGE(HttpStatus.NOT_FOUND, "Product image is not found"),
+
+    NOT_FOUND_OFFER_PRICE(HttpStatus.NOT_FOUND, "Product offer price is not found");
     /**
      * The http status.
      */

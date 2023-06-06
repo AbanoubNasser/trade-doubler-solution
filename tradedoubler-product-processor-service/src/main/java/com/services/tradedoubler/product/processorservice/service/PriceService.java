@@ -1,11 +1,14 @@
 package com.services.tradedoubler.product.processorservice.service;
 
 import com.services.tradedoubler.product.processorservice.bo.Price;
+import com.services.tradedoubler.product.processorservice.exception.ServiceError;
 import com.services.tradedoubler.product.processorservice.model.OfferEntity;
 import com.services.tradedoubler.product.processorservice.model.PriceEntity;
 import com.services.tradedoubler.product.processorservice.repository.PriceRepository;
 import com.services.tradedoubler.product.processorservice.service.mapper.PriceMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class PriceService {
@@ -23,5 +26,9 @@ public class PriceService {
         PriceEntity priceEntity = priceMapper.map(price);
         priceEntity.setOffer(offerEntity);
         priceRepository.save(priceEntity);
+    }
+
+    public PriceEntity getOfferPrice(final UUID offerId){
+        return priceRepository.findByOfferId(offerId).orElseThrow(()-> ServiceError.NOT_FOUND_OFFER_PRICE.buildException());
     }
 }

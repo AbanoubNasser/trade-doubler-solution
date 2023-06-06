@@ -53,7 +53,7 @@ public class OfferEntity extends Auditable {
 
     private String dateFormat;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ProductEntity product;

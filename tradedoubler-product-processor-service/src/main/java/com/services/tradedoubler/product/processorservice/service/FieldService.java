@@ -7,7 +7,9 @@ import com.services.tradedoubler.product.processorservice.repository.FieldReposi
 import com.services.tradedoubler.product.processorservice.service.mapper.FieldMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class FieldService {
@@ -27,4 +29,9 @@ public class FieldService {
         });
         fieldRepository.saveAll(fieldEntities);
     }
+
+    public List<FieldEntity> getProductFields(final UUID productId){
+        return fieldRepository.findByProductId(productId);
+    }
+
 }

@@ -31,7 +31,6 @@ public class ProductEntity extends Auditable {
 
     private String groupingId;
 
-
     private String language;
 
     private String name;
@@ -41,7 +40,7 @@ public class ProductEntity extends Auditable {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    })
+    }, fetch = FetchType.EAGER)
     @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
