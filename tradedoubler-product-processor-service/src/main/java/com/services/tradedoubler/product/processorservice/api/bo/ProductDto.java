@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -90,5 +91,17 @@ public class ProductDto {
                 .fields(FieldDto.mapToDto(fieldEntitySet))
                 .offers(OfferDto.mapToDto(offerPricesMap))
                 .build();
+    }
+
+    public String getProductImage(){
+        return this.productImage.getValue();
+    }
+
+    public String getOffers() {
+        return this.offers.stream().map(offer -> offer.getOfferId()).collect( Collectors.joining( "&" ) );
+    }
+
+    public String getFields(){
+        return this.fields.stream().map(field -> String.format("%s:%S",field.getName(),field.getValue())).collect( Collectors.joining( "&" ) );
     }
 }
