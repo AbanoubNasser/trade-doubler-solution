@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,9 +57,17 @@ public class ProductService {
     }
 
     private ProductDto getProductDto(ProductEntity product) {
-        ProductImageEntity productImageEntity = productImageService.getProductImageEntity(product.getId());
-        List<FieldEntity> productsFields = fieldService.getProductFields(product.getId());
-        Map<OfferEntity, PriceEntity> productOfferPrices = offerService.getProductOffers(product.getId());
-        return ProductDto.mapToDto(product, productImageEntity, productsFields, productOfferPrices);
+        try{
+            CompletableFuture<ProductImageEntity> productImageEntityFuture =
+                    CompletableFuture.supplyAsync(() -> productImageService.getProductImageEntity(product.getId()));
+            CompletableFuture<List<FieldEntity>> productsFieldsFuture =
+                    CompletableFuture.supplyAsync(() -> fieldService.getProductFields(product.getId()));
+            CompletableFuture<Map<OfferEntity, PriceEntity>> productOfferPricesFuture =
+                    CompletableFuture.supplyAsync(() -> offerService.getProductOffers(product.getId()));
+            CompletableFuture.allOf(productImageEntityFuture, productsFieldsFuture, productOfferPricesFuture).get();
+            return ProductDto.mapToDto(product, productImageEntityFuture.join(), productsFieldsFuture.join(), productOfferPricesFuture.join());
+        }catch (ExecutionException | InterruptedException e){
+            throw ServiceError.INTERNAL_SERVER_ERROR.buildException(e.getMessage());
+        }
     }
 }
