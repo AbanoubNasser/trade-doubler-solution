@@ -7,6 +7,7 @@ public enum ServiceError implements RestError {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, ""),
     REQUEST_VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "Invalid expected input"),
 
+    ERROR_WHILE_LOAD_SCHEMA_FILE(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid Schema path"),
     INVALID_XML_CONTENT(HttpStatus.BAD_REQUEST, "Invalid xml content vs defined schema"),
 
     INVALID_XML_MAPPING(HttpStatus.BAD_REQUEST, "Invalid xml mapping values to schema"),

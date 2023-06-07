@@ -193,6 +193,16 @@
                         <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
                     </systemPropertyVariables>
                     <excludes>
+                        <exclude>com/services/tradedoubler/product/processorservice/api/bo/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/model/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/service/mapper/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/bo/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/base/entity/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/integration/data/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/integration/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/exception/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/config/*</exclude>
+                        <exclude>com/services/tradedoubler/product/processorservice/TradeDoublerProductProcessorServiceApplication.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>

@@ -1,6 +1,7 @@
 package com.services.tradedoubler.product.processorservice.utils;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.services.tradedoubler.product.processorservice.exception.ServiceError;
+import com.services.tradedoubler.product.processorservice.exception.ServiceException;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -46,8 +47,13 @@ public class XmlUtility {
         return obj;
     }
     private String getSchemaFilePath(String schemaFileName) {
-        URL resource = getClass().getClassLoader().getResource(schemaFileName);
-        Objects.requireNonNull(resource);
-        return resource.getFile();
+        try{
+            URL resource = getClass().getClassLoader().getResource(schemaFileName);
+            Objects.requireNonNull(resource);
+            return resource.getFile();
+        }catch (Exception ex){
+            throw ServiceError.ERROR_WHILE_LOAD_SCHEMA_FILE.buildException();
+        }
+
     }
 }
