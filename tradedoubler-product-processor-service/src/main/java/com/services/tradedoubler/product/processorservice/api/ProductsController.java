@@ -1,6 +1,9 @@
 package com.services.tradedoubler.product.processorservice.api;
 
 import com.services.tradedoubler.product.processorservice.api.bo.ExportFileType;
+import com.services.tradedoubler.product.processorservice.service.ProductsExportService;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +17,19 @@ import static com.services.tradedoubler.product.processorservice.TradeDoublerPro
 @RequestMapping(API_VERSION_1+"/products")
 public class ProductsController {
 
-    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    private final ProductsExportService productsExportService;
+
+    public ProductsController(ProductsExportService productsExportService) {
+        this.productsExportService = productsExportService;
+    }
+
+    @GetMapping(path = "")
     public ResponseEntity<?> exportProducts(@RequestParam("productsFileId") String productsFileId, @RequestParam("exportFileType") ExportFileType exportFileType){
-      return null;
+        ByteArrayResource resource = productsExportService.exportProducts(productsFileId, exportFileType);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=result.%s",exportFileType.name().toLowerCase()))
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
     }
 }

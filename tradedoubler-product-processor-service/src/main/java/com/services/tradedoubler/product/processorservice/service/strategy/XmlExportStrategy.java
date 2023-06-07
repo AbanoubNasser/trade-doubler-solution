@@ -1,17 +1,27 @@
 package com.services.tradedoubler.product.processorservice.service.strategy;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.services.tradedoubler.product.processorservice.api.bo.ExportFileType;
-import com.services.tradedoubler.product.processorservice.api.bo.ProductDto;
+import com.services.tradedoubler.product.processorservice.api.bo.Result;
+import com.services.tradedoubler.product.processorservice.exception.ServiceError;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.util.Set;
 
 @Service
 public class XmlExportStrategy implements ExportStrategy{
+
+    private final XmlMapper xmlMapper;
+
+    public XmlExportStrategy() {
+        this.xmlMapper = new XmlMapper();
+    }
+
     @Override
-    public File exportData(Set<ProductDto> products) {
-        return null;
+    public byte[] exportData(Result result) {
+        try {
+            return xmlMapper.writeValueAsBytes(result);
+        } catch (JsonProcessingException e) {
+            throw ServiceError.ERROR_WHILE_PARSING_DOWNLOAD_RESULT.buildException(e.getMessage());
+        }
     }
 
     @Override

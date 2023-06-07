@@ -1,16 +1,14 @@
 package com.services.tradedoubler.product.processorservice.service.strategy;
 
 import com.services.tradedoubler.product.processorservice.api.bo.ExportFileType;
-import com.services.tradedoubler.product.processorservice.api.bo.ProductDto;
+import com.services.tradedoubler.product.processorservice.api.bo.Result;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.util.Set;
 
 @Service
 public class CSVExportStrategy implements ExportStrategy{
     @Override
-    public File exportData(Set<ProductDto> products) {
+    public byte[] exportData(Result result) {
         return null;
     }
 

@@ -1,6 +1,5 @@
 package com.services.tradedoubler.product.processorservice.api.bo;
 
-import com.services.tradedoubler.product.processorservice.model.FieldEntity;
 import com.services.tradedoubler.product.processorservice.model.OfferEntity;
 import com.services.tradedoubler.product.processorservice.model.PriceEntity;
 import lombok.Builder;
@@ -45,7 +44,7 @@ public class OfferDto {
 
     private String dateFormat;
 
-    private PriceDto priceDto;
+    private PriceDto price;
 
     public static Set<OfferDto> mapToDto(Map<OfferEntity, PriceEntity> offerPricesMap){
         return offerPricesMap.entrySet().stream().map(entry -> mapToDto(entry.getKey(), entry.getValue())).collect(Collectors.toSet());
@@ -68,7 +67,7 @@ public class OfferDto {
                 .sourceProductId(offerEntity.getSourceProductId())
                 .modifiedDate(offerEntity.getModifiedDate())
                 .dateFormat(offerEntity.getDateFormat())
-                .priceDto(PriceDto.mapToDto(priceEntity))
+                .price(PriceDto.mapToDto(priceEntity))
                 .build();
 
     }

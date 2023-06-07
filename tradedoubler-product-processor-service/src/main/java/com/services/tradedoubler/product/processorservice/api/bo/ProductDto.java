@@ -1,5 +1,6 @@
 package com.services.tradedoubler.product.processorservice.api.bo;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.services.tradedoubler.product.processorservice.model.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
+@JacksonXmlRootElement(localName = "Product")
 public class ProductDto {
 
     private UUID id;
@@ -53,11 +55,11 @@ public class ProductDto {
 
     private String sku;
 
-    private ProductImageDto productImageDto;
+    private ProductImageDto productImage;
 
-    private Set<OfferDto> offerDtoSet;
+    private Set<OfferDto> offers;
 
-    private Set<FieldDto> fieldDtoSet;
+    private Set<FieldDto> fields;
 
     public static ProductDto mapToDto(ProductEntity productEntity,
                                       ProductImageEntity productImageEntity,
@@ -84,9 +86,9 @@ public class ProductDto {
                 .isbn(productEntity.getIsbn())
                 .mpn(productEntity.getMpn())
                 .sku(productEntity.getSku())
-                .productImageDto(ProductImageDto.mapToDto(productImageEntity))
-                .fieldDtoSet(FieldDto.mapToDto(fieldEntitySet))
-                .offerDtoSet(OfferDto.mapToDto(offerPricesMap))
+                .productImage(ProductImageDto.mapToDto(productImageEntity))
+                .fields(FieldDto.mapToDto(fieldEntitySet))
+                .offers(OfferDto.mapToDto(offerPricesMap))
                 .build();
     }
 }

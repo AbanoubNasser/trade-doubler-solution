@@ -1,14 +1,12 @@
 package com.services.tradedoubler.product.processorservice.service.strategy;
 
 import com.services.tradedoubler.product.processorservice.api.bo.ExportFileType;
-import com.services.tradedoubler.product.processorservice.api.bo.ProductDto;
+import com.services.tradedoubler.product.processorservice.api.bo.Result;
 
-import java.io.File;
-import java.util.Set;
 
 public interface ExportStrategy {
 
-    File exportData(Set<ProductDto> products);
+    byte[] exportData(Result result);
 
     ExportFileType getExportType();
 }
