@@ -1,5 +1,7 @@
 package com.services.tradedoubler.product.processorservice;
 
+import com.services.tradedoubler.product.processorservice.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -7,7 +9,6 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
 import java.util.function.Supplier;
 
 import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
@@ -20,6 +21,8 @@ public abstract class SpringBootComponentTest {
 
     protected static String BASE_URL_TEMPLATE = "/api/v1";
 
+    @Autowired
+    protected ProductRepository productRepository;
     private static final PostgreSQLContainer<?> postgreSQLContainer =
             SpringBootPostgresContainer.getInstance();
 
