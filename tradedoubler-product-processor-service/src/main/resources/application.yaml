@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://192.168.8.144:5433/products}
-    username: ${SPRING_DATASOURCE_USERNAME:productservice}
-    password: ${SPRING_DATASOURCE_PASSWORD:productservicepassword}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     properties:
       hibernate:

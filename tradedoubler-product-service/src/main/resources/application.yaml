@@ -4,9 +4,9 @@ spring:
       max-file-size: 1024KB
       max-request-size: 1024KB
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://192.168.8.144:5432/productfiles}
-    username: ${SPRING_DATASOURCE_USERNAME:productservice}
-    password: ${SPRING_DATASOURCE_PASSWORD:productservicepassword}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     properties:
       hibernate:
