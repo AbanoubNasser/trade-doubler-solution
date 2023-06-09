@@ -89,7 +89,7 @@ Service Structure
 
 ## Database
 This service using Postgres DB with the following ERD
-![](/Users/abanoubnasser/Desktop/Abanoub/Projects/trade-doubler-solution/ERD.png)
+![](https://github.com/AbanoubNasser/trade-doubler-solution/blob/master/ERD.png)
 
 ## CURLs
 * To Export persisted products in DB with Uploaded file id and format in [XML, CSV, JSON]
