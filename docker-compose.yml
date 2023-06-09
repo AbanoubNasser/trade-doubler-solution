@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  product-files-postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: productservice
+      POSTGRES_PASSWORD: productservicepassword
+      POSTGRES_DB: productfiles
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  postgres-products:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: productservice
+      POSTGRES_PASSWORD: productservicepassword
+      POSTGRES_DB: products
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-products-data:/var/lib/postgresql/data
+  tradedoubler-product-service:
+    build: ./tradedoubler-product-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - product-files-postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://product-files-postgres:5432/productfiles
+      SPRING_DATASOURCE_USERNAME: productservice
+      SPRING_DATASOURCE_PASSWORD: productservicepassword
+  tradedoubler-product-processor-service:
+    build: ./tradedoubler-product-processor-service
+    ports:
+      - "9090:9090"
+    depends_on:
+      - postgres-products
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-products:5432/products
+      SPRING_DATASOURCE_USERNAME: productservice
+      SPRING_DATASOURCE_PASSWORD: productservicepassword
+      PRODUCTS_FILE_SERVICE_URL: http://tradedoubler-product-service:8080/api/v1/products
+
+volumes:
+  postgres-data:
+  postgres-products-data:

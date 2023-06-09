@@ -25,6 +25,7 @@ Service Structure
 * flyway migration
 * Postgres DB
 * Junit5 
+* Test container
 * Jacoco plugin (Test coverage)
 
 ## Database 
@@ -32,7 +33,7 @@ This service using Postgres DB with two tables
 * products_files to handle the info for uploaded products files
 * flyway migration table for manage DB migration versions
 
-## CURLS
+## CURLs
 * to upload products file and from response header you can get the id for uploaded file in location header
 
 ```
@@ -85,6 +86,8 @@ Service Structure
 * XML, JSON, CSV Mappers
 * Postgres DB
 * Junit5
+* Test container
+* WireMock
 * Jacoco plugin (Test coverage)
 
 ## Database
@@ -95,4 +98,19 @@ This service using Postgres DB with the following ERD
 * To Export persisted products in DB with Uploaded file id and format in [XML, CSV, JSON]
 ```
 curl --location 'http://localhost:9090/api/v1/products?productsFileId=d9643dab-8b0e-4dce-91e9-cc3053365716&exportFileType=CSV'
+```
+## Run Locally
+* First Go to base path file of Tradedoubler-product-service
+* Run the following command
+```agsl
+mvn clean install
+```
+* Second Go to base path file of Tradedoubler-product-processor-service
+* Run the following command
+```agsl
+mvn clean install
+```
+* run the following command on the path of trade-doubler-solution to run the docker image for DBs & the microservices
+```
+docker-compose up --build
 ```
