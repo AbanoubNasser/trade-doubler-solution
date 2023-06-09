@@ -104,4 +104,8 @@ public class ProductDto {
     public String getFields(){
         return this.fields.stream().map(field -> String.format("%s:%S",field.getName(),field.getValue())).collect( Collectors.joining( "&" ) );
     }
+
+    public String getCategories(){
+        return this.categories.stream().map(category -> category.getTdCategoryName()).collect( Collectors.joining( "&" ) );
+    }
 }

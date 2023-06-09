@@ -21,12 +21,17 @@ public class ProductsFileService {
     }
 
     public void updateProductsFileStatus(final String fileId, final FileStatus status, final String comment){
-        ProductsFileStatusUpdateRequest request = ProductsFileStatusUpdateRequest
-                .builder()
-                .status(status)
-                .comment(comment)
-                .build();
-        productsFileClient.updateProcessedProductsFileStatus(fileId, request);
+        try{
+            ProductsFileStatusUpdateRequest request = ProductsFileStatusUpdateRequest
+                    .builder()
+                    .status(status)
+                    .comment(comment)
+                    .build();
+            productsFileClient.updateProcessedProductsFileStatus(fileId, request);
+        }catch (Exception ex){
+            log.error("Error while update products file status due to {}", ex.getMessage());
+            throw ServiceError.INTERNAL_SERVER_ERROR.buildException(ex.getMessage());
+        }
     }
     public List<ProductsFile> getProductsFilesByStatus(final FileStatus fileStatus){
         try {

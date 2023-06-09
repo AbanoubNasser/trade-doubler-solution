@@ -18,7 +18,9 @@ public enum ServiceError implements RestError {
 
     NOT_FOUND_OFFER_PRICE(HttpStatus.NOT_FOUND, "Product offer price is not found"),
 
-    ERROR_WHILE_PARSING_DOWNLOAD_RESULT(HttpStatus.INTERNAL_SERVER_ERROR, "");
+    ERROR_WHILE_PARSING_DOWNLOAD_RESULT(HttpStatus.INTERNAL_SERVER_ERROR, ""),
+
+    NO_PRODUCTS_FOUND_FOR_PRODUCT_FILE_ID(HttpStatus.NOT_FOUND, "No products found with provided product file id");
     /**
      * The http status.
      */

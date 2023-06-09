@@ -35,8 +35,9 @@ public class ProductService {
         this.fieldService = fieldService;
     }
 
-    public void createProducts(Set<Product> products){
-        try{
+    @Transactional
+    public void createProducts(Set<Product> products) {
+        try {
             Set<ProductEntity> productEntities = productMapper.mapToSet(products);
             List<ProductEntity> persistedProducts = productRepository.saveAll(productEntities);
             persistedProducts.stream().forEach(productEntity -> {
@@ -45,19 +46,19 @@ public class ProductService {
                 productImageService.createProductImage(productEntity, targetProduct.getProductImage());
                 fieldService.creatProductFields(productEntity, targetProduct.getFields());
             });
-        }catch (Exception exception){
+        } catch (Exception exception) {
             throw ServiceError.ERROR_WHILE_PERSISTING_PRODUCTS_DATA.buildException(exception.getMessage());
         }
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED, noRollbackFor = Exception.class)
-    public Set<ProductDto> getProductsByProductsFileId(final String productFileId){
+    public Set<ProductDto> getProductsByProductsFileId(final String productFileId) {
         List<ProductEntity> products = productRepository.findByProductFileId(productFileId);
         return products.parallelStream().map(product -> getProductDto(product)).collect(Collectors.toSet());
     }
 
     private ProductDto getProductDto(ProductEntity product) {
-        try{
+        try {
             CompletableFuture<ProductImageEntity> productImageEntityFuture =
                     CompletableFuture.supplyAsync(() -> productImageService.getProductImageEntity(product.getId()));
             CompletableFuture<List<FieldEntity>> productsFieldsFuture =
@@ -66,7 +67,7 @@ public class ProductService {
                     CompletableFuture.supplyAsync(() -> offerService.getProductOffers(product.getId()));
             CompletableFuture.allOf(productImageEntityFuture, productsFieldsFuture, productOfferPricesFuture).get();
             return ProductDto.mapToDto(product, productImageEntityFuture.join(), productsFieldsFuture.join(), productOfferPricesFuture.join());
-        }catch (ExecutionException | InterruptedException e){
+        } catch (ExecutionException | InterruptedException e) {
             throw ServiceError.INTERNAL_SERVER_ERROR.buildException(e.getMessage());
         }
     }

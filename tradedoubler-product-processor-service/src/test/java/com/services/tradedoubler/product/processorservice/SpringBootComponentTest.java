@@ -17,7 +17,7 @@ import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @Testcontainers
-public abstract class SpringBootComponentTest {
+public abstract class SpringBootComponentTest extends BaseComponentTest{
 
     protected static String BASE_URL_TEMPLATE = "/api/v1";
 

@@ -5,16 +5,16 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.services.tradedoubler.product.processorservice.SpringBootComponentTest;
 import com.services.tradedoubler.product.processorservice.exception.ServiceException;
 import com.services.tradedoubler.product.processorservice.model.ProductEntity;
+import com.services.tradedoubler.product.processorservice.model.ProductImageEntity;
+import com.services.tradedoubler.product.processorservice.repository.FieldRepository;
+import com.services.tradedoubler.product.processorservice.repository.OfferRepository;
+import com.services.tradedoubler.product.processorservice.repository.PriceRepository;
+import com.services.tradedoubler.product.processorservice.repository.ProductImageRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -28,12 +28,33 @@ public class ProductsProcessorSchedulerIntegrationTests extends SpringBootCompon
     @Autowired
     ProductsProcessorScheduler productsProcessorScheduler;
 
+    @Autowired
+    private ProductImageRepository productImageRepository;
+
+    @Autowired
+    private FieldRepository fieldRepository;
+
+    @Autowired
+    private PriceRepository priceRepository;
+
+    @Autowired
+    private OfferRepository offerRepository;
+
     static private UUID id;
 
     @BeforeAll
     static void init(){
         wireMockServer.start();
         id = UUID.randomUUID();
+    }
+
+    @AfterEach
+    void tearDown(){
+        productImageRepository.deleteAll();
+        fieldRepository.deleteAll();
+        priceRepository.deleteAll();
+        offerRepository.deleteAll();
+        productRepository.deleteAll();
     }
 
     @AfterAll
@@ -134,16 +155,4 @@ public class ProductsProcessorSchedulerIntegrationTests extends SpringBootCompon
         assertNotNull(products);
         assertEquals(3, products.size());
     }
-
-    private String getResourceFileAsString(String fileName) throws IOException {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        try (InputStream is = classLoader.getResourceAsStream(fileName)) {
-            if (is == null) return null;
-            try (InputStreamReader isr = new InputStreamReader(is);
-                 BufferedReader reader = new BufferedReader(isr)) {
-                return reader.lines().collect(Collectors.joining(System.lineSeparator()));
-            }
-        }
-    }
-
 }

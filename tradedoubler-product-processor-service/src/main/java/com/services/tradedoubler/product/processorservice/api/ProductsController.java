@@ -23,7 +23,7 @@ public class ProductsController {
         this.productsExportService = productsExportService;
     }
 
-    @GetMapping(path = "")
+    @GetMapping(path = "/export")
     public ResponseEntity<?> exportProducts(@RequestParam("productsFileId") String productsFileId, @RequestParam("exportFileType") ExportFileType exportFileType){
         ByteArrayResource resource = productsExportService.exportProducts(productsFileId, exportFileType);
         return ResponseEntity
