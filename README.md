@@ -9,6 +9,7 @@ Trade Doubler solution is consist of two microservices
 
 ## Tradedoubler-product-service
 is a small microservice to handle files uploads and save uploaded file metadata in DB.
+Service architecture is a layered architecture using SOLID principles mainly Single responsibility 
 
 Service Structure
 * API package which contains all expected expose apis
@@ -65,6 +66,9 @@ curl --location 'http://localhost:8080/api/v1/products/files?status=UPLOADED'
 
 ## Tradedoubler-product-processor-service
 is a small microservice that request all uploaded files which are not processed then validate them and process to persist into db to can be downloaded
+Service architecture is a layered architecture using SOLID principles mainly Single responsibility.
+
+Service lifecycle 
 * By Scheduler Job will send request to the tradedoubler-product-service to retrieve uploaded files
 * Start validate and parse uploaded files
 * update the status of the uploaded file in case failure or success
