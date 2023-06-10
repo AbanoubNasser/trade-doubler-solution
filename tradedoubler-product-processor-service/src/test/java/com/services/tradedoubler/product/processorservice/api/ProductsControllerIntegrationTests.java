@@ -29,8 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ProductsControllerIntegrationTests extends SpringBootComponentTest {
 
-    private final ObjectMapper mapper = new ObjectMapper();
-
     private final String PRODUCTS_URL_TEMPLATE = BASE_URL_TEMPLATE +"/products";
 
     @Autowired
