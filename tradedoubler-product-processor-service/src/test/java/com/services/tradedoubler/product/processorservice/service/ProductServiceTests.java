@@ -47,7 +47,7 @@ public class ProductServiceTests extends BaseComponentTest {
 
     @BeforeEach
     void init(){
-        xmlUtility = new XmlUtility();
+        xmlUtility = new XmlUtility(null);
     }
 
     @Test

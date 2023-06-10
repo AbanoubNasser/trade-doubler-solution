@@ -1,40 +1,30 @@
 package com.services.tradedoubler.product.processorservice.utils;
 
-import com.services.tradedoubler.product.processorservice.BaseComponentTest;
+import com.services.tradedoubler.product.processorservice.SpringBootComponentTest;
 import com.services.tradedoubler.product.processorservice.bo.Result;
 import com.services.tradedoubler.product.processorservice.exception.ServiceException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.io.IOException;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-@ExtendWith(MockitoExtension.class)
-public class XmlUtilityTests extends BaseComponentTest {
 
+public class XmlUtilityTests extends SpringBootComponentTest {
+
+    @Autowired
     private XmlUtility xmlUtility;
-
-    @BeforeEach
-    void init(){
-        xmlUtility = new XmlUtility();
-    }
-
-    @Test
-    public void testNotFoundSchema() {
-        assertThrows(ServiceException.class, ()-> xmlUtility.validate(getResourceFileAsString("Products.xml"), "Not_Valid.xsd"));
-    }
 
     @Test
     public void testValidationWithInvalidProductData() {
-        assertThrows(ServiceException.class, ()-> xmlUtility.validate(getResourceFileAsString("Invalid_Products.xml"), "Products_Def.xsd"));
+        assertThrows(ServiceException.class, ()-> xmlUtility.validate(getResourceFileAsString("Invalid_Products.xml")));
     }
 
     @Test
     public void testValidationSuccessfully() {
-        assertDoesNotThrow(() -> xmlUtility.validate(getResourceFileAsString("Products.xml"), "Products_Def.xsd"));
+        assertDoesNotThrow(() -> xmlUtility.validate(getResourceFileAsString("Products.xml")));
     }
 
     @Test

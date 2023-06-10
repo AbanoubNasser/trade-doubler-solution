@@ -22,6 +22,7 @@ Service Structure
 
 ## Tech Stack
 * Java 17
+* Maven
 * Spring boot 3
 * flyway migration
 * Postgres DB
@@ -87,6 +88,7 @@ Service Structure
 
 ## Tech Stack
 * Java 17
+* Maven
 * Spring boot 3
 * Feign client
 * Mapstruct

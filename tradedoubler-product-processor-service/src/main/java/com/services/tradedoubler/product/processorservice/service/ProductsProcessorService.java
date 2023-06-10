@@ -21,7 +21,7 @@ public class ProductsProcessorService {
     }
 
     public Set<Product> processProducts(final String productsXmlContent, String productsFileId){
-        xmlUtility.validate(productsXmlContent, productProperties.getSchemaFileName());
+        xmlUtility.validate(productsXmlContent);
         Result productsResult = xmlUtility.parseXml(productsXmlContent, Result.class);
         return productsResult.getProducts().parallelStream().map(product ->{
             product.setProductFileId(productsFileId);

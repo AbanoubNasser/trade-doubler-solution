@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class BaseComponentTest {
 
-    private XmlUtility xmlUtility = new XmlUtility();
+    private XmlUtility xmlUtility = new XmlUtility(null);
 
     protected Set<Product> buildMappedProducts() throws IOException {
         Result result = xmlUtility.parseXml(getResourceFileAsString("Products.xml"), Result.class);
