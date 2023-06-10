@@ -59,7 +59,7 @@ curl --location 'http://localhost:8080/api/v1/products/files/cde2c86a-118a-4696-
 curl --location 'http://localhost:8080/api/v1/products/files/cde2c86a-118a-4696-b737-bfbb5f9f19f8'
 ```
 
-*To Get all uploaded file with specific status
+* To Get all uploaded file with specific status
 ```
 curl --location 'http://localhost:8080/api/v1/products/files?status=UPLOADED'
 ```
