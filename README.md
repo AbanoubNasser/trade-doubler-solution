@@ -8,7 +8,7 @@ Trade Doubler solution is consist of two microservices
 * tradedoubler-product-processor-service
 
 ## Tradedoubler-product-service
-is a small microservice to handle files uploads and uploaded file identification.
+is a small microservice to handle files uploads and save uploaded file metadata in DB.
 
 Service Structure
 * API package which contains all expected expose apis
@@ -26,7 +26,7 @@ Service Structure
 * Postgres DB
 * Junit5 
 * Test container
-* Jacoco plugin (Test coverage)
+* Jacoco plugin (Test coverage, and find the path to report in /target/site/jacoco/index.html)
 
 ## Database 
 This service using Postgres DB with two tables
@@ -51,16 +51,20 @@ curl --location --request PUT 'http://localhost:8080/api/v1/products/files/ee35e
 ```
 * To get uploaded file content
 ```
-http://localhost:8080/api/v1/products/files/cde2c86a-118a-4696-b737-bfbb5f9f19f8/content
+curl --location 'http://localhost:8080/api/v1/products/files/cde2c86a-118a-4696-b737-bfbb5f9f19f8/content'
+```
+* To get uploaded file entity
+```
+curl --location 'http://localhost:8080/api/v1/products/files/cde2c86a-118a-4696-b737-bfbb5f9f19f8'
 ```
 
-*To Get al uploaded file with specific status
+*To Get all uploaded file with specific status
 ```
 curl --location 'http://localhost:8080/api/v1/products/files?status=UPLOADED'
 ```
 
 ## Tradedoubler-product-processor-service
-is a small microservice process and download the uploaded file in 4 phases
+is a small microservice that request all uploaded files which are not processed then validate them and process to persist into db to can be downloaded
 * By Scheduler Job will send request to the tradedoubler-product-service to retrieve uploaded files
 * Start validate and parse uploaded files
 * update the status of the uploaded file in case failure or success
@@ -82,13 +86,14 @@ Service Structure
 * Spring boot 3
 * Feign client
 * Mapstruct
+* Spring scheduler
 * flyway migration
 * XML, JSON, CSV Mappers
 * Postgres DB
 * Junit5
 * Test container
 * WireMock
-* Jacoco plugin (Test coverage)
+* Jacoco plugin (Test coverage, and find the path to report in /target/site/jacoco/index.html)
 
 ## Database
 This service using Postgres DB with the following ERD

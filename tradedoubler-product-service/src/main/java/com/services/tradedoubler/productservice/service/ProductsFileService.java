@@ -69,6 +69,15 @@ public class ProductsFileService {
         }
     }
 
+    public ProductsFileDto getProductFile(final String fileId){
+        ProductsFileEntity entity = getProductsFileEntityById(fileId);
+        return ProductsFileDto.builder()
+                .id(entity.getId())
+                .fileName(entity.getFileName())
+                .status(entity.getStatus())
+                .comment(entity.getComment())
+                .build();
+    }
     private  ProductsFileEntity getProductsFileEntityById(final String fileId){
        return productsFileRepository.findById(fileId).orElseThrow(()-> ServiceError.NOT_FOUND_PRODUCTS_FILE.buildException());
     }

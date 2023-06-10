@@ -50,4 +50,10 @@ public class ProductsFileController {
         String content = productsFileService.getProductsFileContent(fileId);
         return ResponseEntity.ok(content);
     }
+
+    @GetMapping(path = "/{fileId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getProductsFileMetadata(@NotBlank @PathVariable String fileId) {
+        ProductsFileDto productsFileDto = productsFileService.getProductFile(fileId);
+        return ResponseEntity.ok(productsFileDto);
+    }
 }

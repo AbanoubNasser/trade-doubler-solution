@@ -173,6 +173,31 @@ public class ProductsFileControllerIntegrationTest extends SpringBootComponentTe
         assertEquals(expectedResponse, actualResponse);
     }
 
+    @Test
+    public void testGetProductFileEntityForNotExistEntity() throws Exception {
+        mockMvc.perform(get(PRODUCTS_FILE_URL_TEMPLATE+ "/"+UUID.randomUUID())
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().json("""
+                 {"description":"Products file with specified criteria is not found","error":"NOT_FOUND_PRODUCTS_FILE","status":"NOT_FOUND"}
+            """));
+    }
+
+    @Test
+    public void testGetProductFileEntitySuccessfully() throws Exception {
+        String productFileId = submitProductFileUploadRequestSuccessfully();
+        mockMvc.perform(get(PRODUCTS_FILE_URL_TEMPLATE+ "/"+productFileId)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk()).andExpect(content().json(String.format("""
+                {
+                "id": "%s",
+                "fileName":"products.xml",
+                "status":"UPLOADED",
+                "comment":null
+                }
+                """,productFileId)));
+    }
+
     private String submitProductFileUploadRequestSuccessfully() throws Exception {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "products.xml", MediaType.APPLICATION_XML_VALUE, getResourceFileAsString("products.xml").getBytes());
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.multipart(PRODUCTS_FILE_URL_TEMPLATE)

@@ -108,7 +108,7 @@ public class ProductsProcessorSchedulerIntegrationTests extends SpringBootCompon
                 .withRequestBody(WireMock.containing("status"))
                 .withHeader("Content-Type", equalTo("application/json"))
                 .willReturn(aResponse().withStatus(204)).withHeader("Content-Type", equalTo("application/json")));
-        Thread.sleep(30000);
+        Thread.sleep(30000); //this line is added to wait reflecting the wiremock stub for the same apis with different responses
 
         productsProcessorScheduler.processProductsFiles();
 
@@ -144,7 +144,7 @@ public class ProductsProcessorSchedulerIntegrationTests extends SpringBootCompon
                 .withRequestBody(WireMock.containing("status"))
                 .withHeader("Content-Type", equalTo("application/json"))
                 .willReturn(aResponse().withStatus(204)).withHeader("Content-Type", equalTo("application/json")));
-        Thread.sleep(30000);
+        Thread.sleep(30000); //this line is added to wait reflecting the wiremock stub for the same apis with different responses
 
         productsProcessorScheduler.processProductsFiles();
 
